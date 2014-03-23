@@ -56,7 +56,7 @@ namespace yg_icon
 	bool CombineIconFiles::WriteOneIconFile( FILE* fp_write, unsigned long& entry_pos, unsigned long& img_pos, WORD& icon_num, const std::wstring& read_path )
 	{
 		FILE* fp_read = NULL;
-		::_wfopen_s(&fp_read, read_path.c_str(), L"rb");  // 必须有b 否则fread_s出错
+		::_wfopen_s(&fp_read, read_path.c_str(), L"rb");  //note: rb..
 		if (fp_read == NULL)
 		{
 			return false;

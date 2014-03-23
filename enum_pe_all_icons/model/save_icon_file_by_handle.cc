@@ -154,9 +154,9 @@ namespace yg_icon
 
 			// bitmap info header
 			int nBitsSize = color_header_all->bmiHeader.biSizeImage;
-			color_header_all->bmiHeader.biHeight *= 2; //注意，*2
+			color_header_all->bmiHeader.biHeight *= 2; //note:*2
 			color_header_all->bmiHeader.biCompression = 0;
-			color_header_all->bmiHeader.biSizeImage += mask_header_all->bmiHeader.biSizeImage;  //注意加，上mask部分
+			color_header_all->bmiHeader.biSizeImage += mask_header_all->bmiHeader.biSizeImage;  //note: add mask info
 			WriteData(fp, (char*)color_header_all, pos, bminfo_header_size);
 			// Write image data:
 			WriteData(fp, (char*)bm_img_data, nBitsSize);

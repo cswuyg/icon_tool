@@ -85,7 +85,7 @@ namespace yg_icon
 		ICONINFO icon_info;
 		::GetIconInfo(hIcon, &icon_info);
 		AutoBITMAPHandle hbmColor(icon_info.hbmColor);
-		AutoBITMAPHandle hbmMask(icon_info.hbmMask); // free bitmaps when function ends
+		AutoBITMAPHandle hbmMask(icon_info.hbmMask);
 		BITMAPINFO color_header = { 0 };
 		color_header.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 		if (!::GetDIBits(hDC, hbmColor, 0, 0, NULL, &color_header, DIB_RGB_COLORS))
@@ -154,9 +154,9 @@ namespace yg_icon
 
 			// bitmap info header
 			int nBitsSize = color_header_all->bmiHeader.biSizeImage;
-			color_header_all->bmiHeader.biHeight *= 2; //注意，*2
+			color_header_all->bmiHeader.biHeight *= 2; //note，*2
 			color_header_all->bmiHeader.biCompression = 0;
-			color_header_all->bmiHeader.biSizeImage += mask_header_all->bmiHeader.biSizeImage;  //注意加，上mask部分
+			color_header_all->bmiHeader.biSizeImage += mask_header_all->bmiHeader.biSizeImage;  //note: add mast info
 			WriteData(fp, (char*)color_header_all, pos, bminfo_header_size);
 			// Write image data:
 			WriteData(fp, (char*)bm_img_data, nBitsSize);

@@ -95,19 +95,19 @@ namespace yg_icon
 		{
 			DWORD red = 0;
 			DWORD file_size = ::GetFileSize(hFile, NULL); 
-			if (file_size <= (sizeof(IMAGE_DOS_HEADER) + sizeof(IMAGE_NT_HEADERS)))  //PE文件size至少要大于DOS头+NT头
+			if (file_size <= (sizeof(IMAGE_DOS_HEADER) + sizeof(IMAGE_NT_HEADERS)))  //PE file's size > DOS header + NT header
 			{
 				e_ret = e_pe_other;
 				break;
 			}
 			unsigned short magic; 
 			::ReadFile(hFile, &magic, sizeof(magic), &red, NULL);
-			if (magic != IMAGE_DOS_SIGNATURE) //DOS 头
+			if (magic != IMAGE_DOS_SIGNATURE) //DOS head
 			{
 				e_ret = e_pe_other;
 				break;
 			}
-			::SetFilePointer(hFile, (DWORD)&((IMAGE_DOS_HEADER*)0)->e_lfanew, NULL, FILE_BEGIN);   //0x3C 指出NT HEADER偏移
+			::SetFilePointer(hFile, (DWORD)&((IMAGE_DOS_HEADER*)0)->e_lfanew, NULL, FILE_BEGIN);   //0x3C point out NT HEADER's offset
 			unsigned long nt_head_pos;  
 			::ReadFile(hFile, &nt_head_pos, sizeof(nt_head_pos), &red, NULL);
 			if (file_size <= nt_head_pos + sizeof(IMAGE_NT_HEADERS))
@@ -118,7 +118,7 @@ namespace yg_icon
 			::SetFilePointer(hFile, nt_head_pos, NULL, FILE_BEGIN); 
 			IMAGE_NT_HEADERS nt_header = { 0 }; 
 			::ReadFile(hFile, &nt_header, sizeof(IMAGE_NT_HEADERS), &red, NULL);
-			if (nt_header.Signature == IMAGE_NT_SIGNATURE)  //有PE标识
+			if (nt_header.Signature == IMAGE_NT_SIGNATURE)  //has "PE"
 			{
 				if (nt_header.FileHeader.Characteristics & IMAGE_FILE_DLL)
 				{
